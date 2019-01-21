@@ -9,7 +9,7 @@ namespace rpio_test
         static void Main(string[] args)
         {
             Console.WriteLine("Gpio Interrupts");
-            var pin = Pi.Gpio.Pin04;
+            var pin = Pi.Gpio.Pin07;
             Console.WriteLine($"Listening on pin {pin.PinNumber}");
             pin.PinMode = GpioPinDriveMode.Input;
             pin.RegisterInterruptCallback(EdgeDetection.FallingEdge, ISRCallback);
