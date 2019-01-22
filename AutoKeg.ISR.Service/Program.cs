@@ -14,7 +14,7 @@ namespace AutoKeg.ISR.Service
             var pin = Pi.Gpio.Pin07;
             Console.WriteLine($"Listening on pin {pin.PinNumber}");
             pin.PinMode = GpioPinDriveMode.Input;
-            pin.RegisterInterruptCallback(EdgeDetection.FallingEdge, ISRCallback);
+            pin.RegisterInterruptCallback(EdgeDetection.RisingAndFallingEdges, ISRCallback);
             Console.ReadKey();
             Console.WriteLine($"{pulseCount}");
         }
