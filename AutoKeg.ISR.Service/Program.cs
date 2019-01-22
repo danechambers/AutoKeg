@@ -6,6 +6,8 @@ namespace rpio_test
 {
     class Program
     {
+        static volatile int pulseCount = 0;
+
         static void Main(string[] args)
         {
             Console.WriteLine("Gpio Interrupts");
@@ -14,11 +16,9 @@ namespace rpio_test
             pin.PinMode = GpioPinDriveMode.Input;
             pin.RegisterInterruptCallback(EdgeDetection.FallingEdge, ISRCallback);
             Console.ReadKey();
+            Console.WriteLine($"{pulseCount}");
         }
 
-        static void ISRCallback()
-        {
-            Console.WriteLine("Pin Activated...");
-        }
+        static void ISRCallback() => pulseCount++;
     }
 }
