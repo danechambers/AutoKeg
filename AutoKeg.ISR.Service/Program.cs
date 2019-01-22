@@ -2,7 +2,7 @@
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
-namespace rpio_test
+namespace AutoKeg.ISR.Service
 {
     class Program
     {
