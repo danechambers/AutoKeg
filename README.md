@@ -24,7 +24,7 @@ msbuild
  `rsync -avzh bin/Debug/net471/ you@urpiaddr:/path/to/folder`
  
  ---
- Testing
+ Test
  ---
  start application 
  
