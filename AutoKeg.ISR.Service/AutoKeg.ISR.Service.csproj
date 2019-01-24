@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net471</TargetFramework>
     <RootNamespace>AutoKeg.ISR.Service</RootNamespace>
+    <AssemblyName>autokeg</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
