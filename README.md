@@ -2,9 +2,17 @@
 Gluten free skunkworks
 
 ---
+Runtime Requirements
+---
+Mono version 15.18+
+Follow instructions here https://www.mono-project.com/download/stable/#download-lin-raspbian for install on raspberry pi.
+You only need to install `mono-runtime` 
+
+---
 Build Requirements
 ---
 Mono version 15.18+
+Msbuild version 15.8+
 
 ---
 Build
