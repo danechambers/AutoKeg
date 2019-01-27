@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoKeg.ISR.Snapshot\Autokeg.ISR.Snapshot.csproj" />
+    <ProjectReference Include="..\AutoKeg.ISR.Snapshot\AutoKeg.ISR.Snapshot.csproj" />
   </ItemGroup>
 
 </Project>

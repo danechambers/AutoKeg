@@ -9,6 +9,7 @@ namespace AutoKeg.ISR.Service
     class Program
     {
         static PulseCounter Counter { get; } = PulseCounter.Instance;
+        static SnapshotCount CounterSnapshot { get; } = new SnapshotCount(TimeSpan.FromSeconds(value: 3));
 
         static void Main(string[] args)
         {
