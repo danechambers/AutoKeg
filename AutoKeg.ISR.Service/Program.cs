@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoKeg.ISR.Service.Listeners;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
@@ -11,11 +12,15 @@ namespace AutoKeg.ISR.Service
         static void Main(string[] args)
         {
             Console.WriteLine("Gpio Interrupts");
-            var pin = Pi.Gpio.Pin07;
-            Console.WriteLine($"Listening on pin {pin.PinNumber}");
-            pin.PinMode = GpioPinDriveMode.Input;
-            pin.RegisterInterruptCallback(EdgeDetection.RisingAndFallingEdges, ISRCallback);
-            Console.ReadKey();
+            var pin = 7;
+
+            using(var pinListener = new GpioPinListener(pin))
+            {
+                Console.WriteLine($"Listening on pin {pin}");
+                pinListener.RegisterISRCallback(ISRCallback);
+                Console.ReadKey();
+            }
+
             Console.WriteLine($"{pulseCount}");
         }
 
