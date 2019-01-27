@@ -12,21 +12,21 @@ namespace AutoKeg.ISR.Service.Listeners
 
         public GpioPinListener(int bcmPinNumber)
         {
-            if(!(PinMap.TryGetValue(bcmPinNumber, out var pin)))
+            if (!(PinMap.TryGetValue(bcmPinNumber, out var pin)))
                 throw new ArgumentException($"{bcmPinNumber} is not a valid pin");
-            
+
             Pin = pin();
             Pin.PinMode = GpioPinDriveMode.Input;
         }
 
-        public void RegisterISRCallback(Action callBack) => 
+        public void RegisterISRCallback(Action callBack) =>
             Pin.RegisterInterruptCallback(
-                EdgeDetection.RisingAndFallingEdges, 
+                EdgeDetection.RisingAndFallingEdges,
                 callBack.Invoke);
 
         public void Dispose() => Gpio.Dispose();
 
-        private Dictionary<int, Func<GpioPin>> PinMap { get; } =
+        private static Dictionary<int, Func<GpioPin>> PinMap { get; } =
             new Dictionary<int, Func<GpioPin>>
             {
                 { 4, () => Gpio.Pin07 },

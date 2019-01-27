@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoKeg.ISR.Service.Listeners;
+using AutoKeg.ISR.Snapshot;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
@@ -7,7 +8,7 @@ namespace AutoKeg.ISR.Service
 {
     class Program
     {
-        static volatile int pulseCount = 0;
+        static PulseCounter Counter { get; } = PulseCounter.Instance;
 
         static void Main(string[] args)
         {
@@ -21,9 +22,9 @@ namespace AutoKeg.ISR.Service
                 Console.ReadKey();
             }
 
-            Console.WriteLine($"{pulseCount}");
+            Console.WriteLine($"{Counter.CurrentCount}");
         }
 
-        static void ISRCallback() => pulseCount++;
+        static void ISRCallback() => Counter.CurrentCount++;
     }
 }
