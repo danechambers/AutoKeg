@@ -19,13 +19,11 @@ namespace AutoKeg.ISR.Service
             using (var snapshotCounter = new SnapshotCount(60000))
             {
                 Console.WriteLine($"Listening on pin {pin}");
-                pinListener.RegisterISRCallback(ISRCallback);
+                pinListener.RegisterISRCallback(() => Counter.CurrentCount++);
                 Console.ReadKey();
             }
 
             Console.WriteLine("Goodbye...");
         }
-
-        static void ISRCallback() => Counter.CurrentCount++;
     }
 }
