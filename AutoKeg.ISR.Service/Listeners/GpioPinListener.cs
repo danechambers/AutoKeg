@@ -21,7 +21,7 @@ namespace AutoKeg.ISR.Service.Listeners
 
         public void RegisterISRCallback(Action callBack) =>
             Pin.RegisterInterruptCallback(
-                EdgeDetection.RisingAndFallingEdges,
+                EdgeDetection.FallingEdge,
                 callBack.Invoke);
 
         public void Dispose() => Gpio.Dispose();

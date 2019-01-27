@@ -9,18 +9,18 @@ namespace AutoKeg.ISR.Snapshot
         private static PulseCounter Counter { get; } = PulseCounter.Instance;
 
         private Timer PulseTimer { get; set; }  // race conditions??
-        private TimeSpan WaitForSnapshotInterval { get; }
+        private double WaitForSnapshotInterval { get; } // in milliseconds
 
-        public SnapshotCount(TimeSpan sendCountInterval)
+        public SnapshotCount(double idleTimer)
         {
             Counter.PropertyChanged += CounterIncremented;
-            WaitForSnapshotInterval = sendCountInterval;
+            WaitForSnapshotInterval = idleTimer;
             SetPulseTimer();
         }
 
         private void SetPulseTimer()
         {
-            PulseTimer = new Timer(WaitForSnapshotInterval.Milliseconds);
+            PulseTimer = new Timer(WaitForSnapshotInterval);
             PulseTimer.Elapsed += OnTimedEvent;
             PulseTimer.AutoReset = true;
             PulseTimer.Enabled = true;
@@ -29,8 +29,10 @@ namespace AutoKeg.ISR.Snapshot
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             if (Counter.CurrentCount > 0)
-                Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
-                              e.SignalTime);
+            {
+                Console.WriteLine($"Sending {Counter.CurrentCount} pulses to db...");
+                Counter.CurrentCount = 0;
+            }
         }
 
         private void CounterIncremented(object sender, PropertyChangedEventArgs e)
