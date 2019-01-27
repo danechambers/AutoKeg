@@ -1,23 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Timers;
 
 namespace AutoKeg.ISR.Snapshot
 {
-    public class SnapshotCount
+    public class SnapshotCount : IDisposable
     {
         private static PulseCounter Counter { get; } = PulseCounter.Instance;
 
-        private Timer PulseTimer { get; }
+        private Timer PulseTimer { get; set; }  // race conditions??
         private TimeSpan WaitForSnapshotInterval { get; }
 
         public SnapshotCount(TimeSpan sendCountInterval)
         {
             Counter.PropertyChanged += CounterIncremented;
             WaitForSnapshotInterval = sendCountInterval;
+            SetPulseTimer();
+        }
 
-            PulseTimer = new Timer(sendCountInterval.Milliseconds);
+        private void SetPulseTimer()
+        {
+            PulseTimer = new Timer(WaitForSnapshotInterval.Milliseconds);
             PulseTimer.Elapsed += OnTimedEvent;
             PulseTimer.AutoReset = true;
             PulseTimer.Enabled = true;
@@ -34,8 +37,12 @@ namespace AutoKeg.ISR.Snapshot
         {
             if (e.PropertyName == "CurrentCount")
             {
-                // PulseTimer.;
+                // Reset timer
+                PulseTimer.Dispose();
+                SetPulseTimer();
             }
         }
+
+        public void Dispose() => PulseTimer.Dispose();
     }
 }
