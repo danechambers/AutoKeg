@@ -13,7 +13,7 @@ namespace AutoKeg.ISR.Service
         static void Main(string[] args)
         {
             Console.WriteLine("Gpio Interrupts");
-            var pin = 7;
+            var pin = 4;
 
             using(var pinListener = new GpioPinListener(pin))
             {
