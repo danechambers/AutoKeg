@@ -16,7 +16,7 @@ namespace AutoKeg.ISR.Service
             var pin = 4;
 
             using (var pinListener = new GpioPinListener(pin))
-            using (var snapshotCounter = new SnapshotCount(60000))
+            using (var snapshotCounter = new SnapshotCount(60000, Counter))
             {
                 Console.WriteLine($"Listening on pin {pin}");
                 pinListener.RegisterISRCallback(() => Counter.CurrentCount++);

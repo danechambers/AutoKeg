@@ -6,13 +6,14 @@ namespace AutoKeg.ISR.Snapshot
 {
     public class SnapshotCount : IDisposable
     {
-        private static PulseCounter Counter { get; } = PulseCounter.Instance;
+        private PulseCounter Counter { get; }
 
         private Timer PulseTimer { get; set; }  // race conditions??
         private double WaitForSnapshotInterval { get; } // in milliseconds
 
-        public SnapshotCount(double idleTimer)
+        public SnapshotCount(double idleTimer, PulseCounter counter)
         {
+            Counter = counter;
             Counter.PropertyChanged += CounterIncremented;
             WaitForSnapshotInterval = idleTimer;
             SetPulseTimer();
@@ -26,7 +27,7 @@ namespace AutoKeg.ISR.Snapshot
             PulseTimer.Enabled = true;
         }
 
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             if (Counter.CurrentCount > 0)
             {
