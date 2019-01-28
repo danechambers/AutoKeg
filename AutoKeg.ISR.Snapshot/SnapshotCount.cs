@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Timers;
+using AutoKeg.ISR.Snapshot.DataTransfer;
 
 namespace AutoKeg.ISR.Snapshot
 {
@@ -11,7 +12,7 @@ namespace AutoKeg.ISR.Snapshot
         private Timer PulseTimer { get; set; }  // race conditions??
         private double WaitForSnapshotInterval { get; } // in milliseconds
 
-        public SnapshotCount(double idleTimer, PulseCounter counter)
+        public SnapshotCount(double idleTimer, PulseCounter counter )
         {
             Counter = counter;
             Counter.PropertyChanged += CounterIncremented;
