@@ -15,7 +15,7 @@ namespace AutoKeg.ISR.Service.Listeners
             if (!(PinMap.TryGetValue(bcmPinNumber, out var pin)))
                 throw new ArgumentException($"{bcmPinNumber} is not a valid pin");
 
-            Pin = pin();
+            Pin = pin;
             Pin.PinMode = GpioPinDriveMode.Input;
         }
 
@@ -26,10 +26,10 @@ namespace AutoKeg.ISR.Service.Listeners
 
         public void Dispose() => Gpio.Dispose();
 
-        private static Dictionary<int, Func<GpioPin>> PinMap { get; } =
-            new Dictionary<int, Func<GpioPin>>
+        private static Dictionary<int, GpioPin> PinMap { get; } =
+            new Dictionary<int, GpioPin>
             {
-                { 4, () => Gpio.Pin07 },
+                { 4, Gpio.Pin07 },
             };
     }
 }
