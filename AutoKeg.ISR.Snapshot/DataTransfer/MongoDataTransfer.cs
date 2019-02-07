@@ -1,24 +1,20 @@
 using System.Threading.Tasks;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace AutoKeg.ISR.Snapshot.DataTransfer
 {
-    public class MongoDataTransfer : IDataTransfer<BsonDocument>
+    public class MongoDataTransfer<T> : IDataTransfer<T> where T : new()
     {
-        private IMongoCollection<BsonDocument> Collection { get; }
+        private IMongoCollection<T> Collection { get; }
         private static MongoClient Client { get; } = new MongoClient();
 
         public MongoDataTransfer(string database, string collection)
         {
             Collection = Client.GetDatabase(database)
-                .GetCollection<BsonDocument>(collection);
+                .GetCollection<T>(collection);
         }
 
-        public async Task SaveData(BsonDocument data) =>
+        public async Task SaveData(T data) =>
             await Collection.InsertOneAsync(data);
-
-        public async void SaveData(object data) =>
-            await SaveData(data as BsonDocument);
     }
 }
