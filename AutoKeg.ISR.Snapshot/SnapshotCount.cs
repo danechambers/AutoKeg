@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Timers;
+using AutoKeg.ISR.Snapshot.Events;
 using AutoKeg.ISR.Snapshot.DataTransfer;
 
 namespace AutoKeg.ISR.Snapshot
@@ -12,7 +13,7 @@ namespace AutoKeg.ISR.Snapshot
         private Timer PulseTimer { get; set; }  // race conditions??
         private double WaitForSnapshotInterval { get; } // in milliseconds
 
-        public SnapshotCount(double idleTimer, PulseCounter counter )
+        public SnapshotCount(double idleTimer, PulseCounter counter)
         {
             Counter = counter;
             Counter.PropertyChanged += CounterIncremented;
@@ -33,6 +34,7 @@ namespace AutoKeg.ISR.Snapshot
             if (Counter.CurrentCount > 0)
             {
                 Console.WriteLine($"Sending {Counter.CurrentCount} pulses to db...");
+                SnapshotPulseCount(Counter.CurrentCount);
                 Counter.CurrentCount = 0;
             }
         }
@@ -48,5 +50,21 @@ namespace AutoKeg.ISR.Snapshot
         }
 
         public void Dispose() => PulseTimer.Dispose();
+
+        #region snapshot event
+
+        public event EventHandler<PulseSnapshotArgs> PulseSnapshot;
+
+        private void SnapshotPulseCount(int pulseCount)
+        {
+            var dto = new PulseDTO() { Count = pulseCount };
+            var handler = PulseSnapshot;
+            if (handler != null)
+            {
+                handler(this, new PulseSnapshotArgs(dto));
+            }
+        }
+
+        #endregion
     }
 }
