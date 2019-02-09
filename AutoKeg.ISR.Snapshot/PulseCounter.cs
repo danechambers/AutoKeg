@@ -32,10 +32,11 @@ namespace AutoKeg.ISR.Snapshot
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            var handler = PropertyChanged;
+            if (handler == null)
+                return;
+
+            handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
