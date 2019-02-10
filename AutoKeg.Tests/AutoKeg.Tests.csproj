@@ -1,19 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFrameworks>net471;netcoreapp2.1</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.7.3" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
     <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="nunitlite" Version="3.11.0" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.0.0" />
   </ItemGroup>
 
 </Project>

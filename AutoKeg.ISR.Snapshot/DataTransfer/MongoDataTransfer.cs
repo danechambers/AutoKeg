@@ -6,11 +6,11 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
     public class MongoDataTransfer<T> : IDataTransfer<T> where T : new()
     {
         private IMongoCollection<T> Collection { get; }
-        private static MongoClient Client { get; } = new MongoClient();
 
-        public MongoDataTransfer(string database, string collection)
+        public MongoDataTransfer(string mongoUrl, string database, string collection)
         {
-            Collection = Client.GetDatabase(database)
+            Collection = new MongoClient(mongoUrl)
+                .GetDatabase(database)
                 .GetCollection<T>(collection);
         }
 

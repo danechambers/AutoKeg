@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFrameworks>net471;netcoreapp2.1</TargetFrameworks>
     <RootNamespace>AutoKeg.ISR.Service</RootNamespace>
     <AssemblyName>autokeg</AssemblyName>
   </PropertyGroup>

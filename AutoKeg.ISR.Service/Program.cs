@@ -9,7 +9,7 @@ namespace AutoKeg.ISR.Service
     {
         static PulseCounter Counter { get; } = PulseCounter.Instance;
         static IDataTransfer<PulseDTO> DataTransfer { get; } =
-            new MongoDataTransfer<PulseDTO>("somedb", "somecollection");
+            new MongoDataTransfer<PulseDTO>("someurl", "somedb", "somecollection");
 
         static void Main(string[] args)
         {
@@ -24,7 +24,7 @@ namespace AutoKeg.ISR.Service
                 pinListener.RegisterISRCallback(() => Counter.CurrentCount++);
 
                 // subscribe to counter pulse snapshot event
-                snapshotCounter.PulseSnapshot += async (s, e) => 
+                snapshotCounter.PulseSnapshot += async (s, e) =>
                     await DataTransfer.SaveData(e.PulseData);
 
                 Console.ReadKey();
