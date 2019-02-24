@@ -1,8 +1,13 @@
-namespace AutoKeg.ISR.Service.Configuration
+namespace AutoKeg.Configuration
 {
     public class AppSettings
     {
         public int ListenToPin { get; set; }
+        
+        /// <summary>
+        /// Time to wait for counter to become idle in seconds
+        /// </summary>
+        public int IdleTimer { get; set; }
         public MongoSettings Mongo { get; set; }
     }
 

@@ -1,55 +1,56 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
+using System.IO;
 using System.Threading.Tasks;
+using AutoKeg.Configuration;
+using AutoKeg.ISR.Service.Listeners;
+using AutoKeg.ISR.Snapshot;
+using AutoKeg.ISR.Snapshot.DataTransfer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AutoKeg.ISR.Service
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var cancel = new CancellationTokenSource();
-
-            var currentDomain = AppDomain.CurrentDomain;
-
             // Handle any exceptions prior to app run
+            var currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException +=
                 new UnhandledExceptionEventHandler(ErrorHandler);
 
-            // handles external systems events like SIGINT
-            currentDomain.ProcessExit += (s, e) => 
-            {
-                Console.WriteLine("Cancel received...");
-                cancel.Cancel();
-            };
+            var host = new HostBuilder()
+                .ConfigureHostConfiguration(config =>
+                {
+                    config.SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .AddCommandLine(args);
+                })
+                .ConfigureLogging((context, logBuilder) =>
+                {
+                    logBuilder.AddConfiguration(context.Configuration.GetSection("Logging"));
+                    logBuilder.AddConsole();
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    var config = context.Configuration.Get<AppSettings>();
+                    var mongoConfig = config.Mongo;
+                    services.AddSingleton<PulseCounter>(PulseCounter.Instance);
+                    services.AddScoped<IPinListener>(provider =>
+                       new GpioPinListener(config.ListenToPin));
+                    services.AddScoped<ISnapshotPulse>(provider =>
+                        new SnapshotCount(
+                            TimeSpan.FromSeconds(config.IdleTimer),
+                            PulseCounter.Instance));
+                    services.AddScoped<IDataTransfer<PulseDTO>>(provider =>
+                        new MongoDataTransfer<PulseDTO>(mongoConfig.Host,
+                           mongoConfig.Database, mongoConfig.Collection));
+                    services.AddHostedService<Application>();
+                });
 
-            var app = new ApplicationBuilder(args).Build();
-            try
-            {
-                app.Run(cancel.Token).Wait(Timeout.Infinite);
-            }
-            catch (AggregateException e)
-            {
-                if (e.InnerExceptions.All(ex => ex is TaskCanceledException))
-                {
-                    Console.WriteLine("AutoKeg has been cancelled. Goodbye...");
-                    Environment.Exit(0);
-                }
-                else
-                {
-                    Console.WriteLine("Errors occurred during application run and must exit.");
-                    foreach (var error in e.InnerExceptions.Where(ex => !(ex is TaskCanceledException)))
-                    {
-                        Console.WriteLine($"Error: {error.Message}");
-                    }
-                    Environment.Exit(10);
-                }
-            }
-            finally
-            {
-                cancel.Dispose();
-            }
+            await host.RunConsoleAsync();
         }
 
         private static void ErrorHandler(object sender, UnhandledExceptionEventArgs e)

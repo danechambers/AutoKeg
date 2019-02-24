@@ -6,14 +6,14 @@ using AutoKeg.ISR.Snapshot.DataTransfer;
 
 namespace AutoKeg.ISR.Snapshot
 {
-    public class SnapshotCount : IDisposable
+    public class SnapshotCount : ISnapshotPulse
     {
         private PulseCounter Counter { get; }
 
         private Timer PulseTimer { get; set; }  // race conditions??
-        private double WaitForSnapshotInterval { get; } // in milliseconds
+        private TimeSpan WaitForSnapshotInterval { get; }
 
-        public SnapshotCount(double idleTimer, PulseCounter counter)
+        public SnapshotCount(TimeSpan idleTimer, PulseCounter counter)
         {
             Counter = counter;
             Counter.PropertyChanged += CounterIncremented;
@@ -23,7 +23,7 @@ namespace AutoKeg.ISR.Snapshot
 
         private void SetPulseTimer()
         {
-            PulseTimer = new Timer(WaitForSnapshotInterval);
+            PulseTimer = new Timer(WaitForSnapshotInterval.TotalMilliseconds);
             PulseTimer.Elapsed += OnTimedEvent;
             PulseTimer.AutoReset = true;
             PulseTimer.Enabled = true;

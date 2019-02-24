@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>AutoKeg.ISR.Service</RootNamespace>
     <AssemblyName>autokeg</AssemblyName>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,15 +13,20 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
     <PackageReference Include="Unosquare.Raspberry.IO" Version="0.17.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AutoKeg.ISR.Snapshot\AutoKeg.ISR.Snapshot.csproj" />
+    <ProjectReference Include="..\AutoKeg.Configuration\AutoKeg.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\appsettings.json">
+    <Content Include="..\AutoKeg.Configuration\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

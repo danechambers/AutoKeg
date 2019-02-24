@@ -5,22 +5,24 @@ using Unosquare.RaspberryIO.Gpio;
 
 namespace AutoKeg.ISR.Service.Listeners
 {
-    public class GpioPinListener : IPinListener, IDisposable
+    public class GpioPinListener : IPinListener
     {
         private static GpioController Gpio { get; } = Pi.Gpio;
-        private GpioPin Pin { get; }
+        private GpioPin GpioPin { get; }
+        public int Pin { get; }
 
         public GpioPinListener(int bcmPinNumber)
         {
             if (!(PinMap.TryGetValue(bcmPinNumber, out var pin)))
                 throw new ArgumentException($"{bcmPinNumber} is not a valid pin");
 
-            Pin = pin;
-            Pin.PinMode = GpioPinDriveMode.Input;
+            Pin = bcmPinNumber;
+            GpioPin = pin;
+            GpioPin.PinMode = GpioPinDriveMode.Input;
         }
 
         public void RegisterISRCallback(Action callBack) =>
-            Pin.RegisterInterruptCallback(
+            GpioPin.RegisterInterruptCallback(
                 EdgeDetection.FallingEdge,
                 callBack.Invoke);
 
