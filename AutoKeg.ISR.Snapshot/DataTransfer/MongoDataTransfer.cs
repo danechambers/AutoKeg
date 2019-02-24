@@ -14,7 +14,7 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
                 .GetCollection<T>(collection);
         }
 
-        public async Task SaveData(T data) =>
+        public async Task SaveDataAsync(T data) =>
             await Collection.InsertOneAsync(data);
     }
 }

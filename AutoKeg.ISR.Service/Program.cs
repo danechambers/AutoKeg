@@ -25,7 +25,7 @@ namespace AutoKeg.ISR.Service
 
                 // subscribe to counter pulse snapshot event
                 snapshotCounter.PulseSnapshot += async (s, e) =>
-                    await DataTransfer.SaveData(e.PulseData);
+                    await DataTransfer.SaveDataAsync(e.PulseData);
 
                 Console.ReadKey();
             }

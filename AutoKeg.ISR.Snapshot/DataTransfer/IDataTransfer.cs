@@ -5,6 +5,6 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
     public interface IDataTransfer<T>
         where T : new()
     {
-        Task SaveData(T data);
+        Task SaveDataAsync(T data);
     }
 }
