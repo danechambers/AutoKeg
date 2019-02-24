@@ -1,18 +1,20 @@
 using MongoDB.Driver;
 using MongoDB.Bson;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace AutoKeg.Tests.Mongo
 {
     public class Alive
     {
         [Test]
-        public void MongoIsLive()
+        public async Task MongoIsLive()
         {
-            var client = new MongoClient("mongodb://192.168.1.19");
+            var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("pingdb");
-            bool isMongoLive = database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait(1000);
-            Assert.That(isMongoLive, Is.True);
+            var returnDoc = await database.RunCommandAsync((Command<BsonDocument>)"{ping:1}");
+            var expectedDoc = new BsonDocument { { "ok", 1 } };
+            Assert.That(returnDoc, Is.EqualTo(expectedDoc));
         }
     }
 }
