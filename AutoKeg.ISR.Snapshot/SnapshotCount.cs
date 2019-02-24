@@ -57,12 +57,11 @@ namespace AutoKeg.ISR.Snapshot
 
         private void SnapshotPulseCount(int pulseCount)
         {
-            var dto = new PulseDTO { Count = pulseCount };
-
             var handler = PulseSnapshot;
             if (handler == null)
                 return;
 
+            var dto = new PulseDTO { Count = pulseCount };
             handler(this, new PulseSnapshotArgs(dto));
         }
 
