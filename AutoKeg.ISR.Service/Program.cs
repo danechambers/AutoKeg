@@ -38,15 +38,14 @@ namespace AutoKeg.ISR.Service
                     var config = context.Configuration.Get<AppSettings>();
                     var mongoConfig = config.Mongo;
                     services.AddSingleton<PulseCounter>(PulseCounter.Instance);
+                    services.AddScoped<IDurationProvider>(provider =>
+                        new DurationProvider(TimeSpan.FromSeconds(config.IdleTimer)));
                     services.AddScoped<IPinListener>(provider =>
                        new GpioPinListener(config.ListenToPin));
-                    services.AddScoped<ISnapshotPulse>(provider =>
-                        new SnapshotCount(
-                            TimeSpan.FromSeconds(config.IdleTimer),
-                            PulseCounter.Instance));
                     services.AddScoped<IDataTransfer<PulseDTO>>(provider =>
                         new MongoDataTransfer<PulseDTO>(mongoConfig.Host,
                            mongoConfig.Database, mongoConfig.Collection));
+                    services.AddScoped<ISnapshotPulse, SnapshotCount>();
                     services.AddHostedService<Application>();
                 });
 

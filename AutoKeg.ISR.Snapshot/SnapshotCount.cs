@@ -3,21 +3,25 @@ using System.ComponentModel;
 using System.Timers;
 using AutoKeg.ISR.Snapshot.Events;
 using AutoKeg.ISR.Snapshot.DataTransfer;
+using Microsoft.Extensions.Logging;
+using AutoKeg.Configuration;
 
 namespace AutoKeg.ISR.Snapshot
 {
     public class SnapshotCount : ISnapshotPulse
     {
         private PulseCounter Counter { get; }
-
         private Timer PulseTimer { get; set; }  // race conditions??
         private TimeSpan WaitForSnapshotInterval { get; }
+        private ILogger Logger { get; }
 
-        public SnapshotCount(TimeSpan idleTimer, PulseCounter counter)
+        public SnapshotCount(IDurationProvider idleTimer, PulseCounter counter,
+            ILoggerFactory loggerFactory)
         {
             Counter = counter;
             Counter.PropertyChanged += CounterIncremented;
-            WaitForSnapshotInterval = idleTimer;
+            WaitForSnapshotInterval = idleTimer.Duration;
+            Logger = loggerFactory.CreateLogger<SnapshotCount>();
             SetPulseTimer();
         }
 
@@ -33,7 +37,7 @@ namespace AutoKeg.ISR.Snapshot
         {
             if (Counter.CurrentCount > 0)
             {
-                Console.WriteLine($"Sending {Counter.CurrentCount} pulses to db...");
+                Logger.LogInformation($"Sending {Counter.CurrentCount} pulses to db...");
                 SnapshotPulseCount(Counter.CurrentCount);
                 Counter.CurrentCount = 0;
             }
