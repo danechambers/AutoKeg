@@ -5,6 +5,7 @@ using AutoKeg.Configuration;
 using AutoKeg.ISR.Service.Listeners;
 using AutoKeg.ISR.Snapshot;
 using AutoKeg.ISR.Snapshot.DataTransfer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,15 +37,17 @@ namespace AutoKeg.ISR.Service
                 .ConfigureServices((context, services) =>
                 {
                     var config = context.Configuration.Get<AppSettings>();
+
+                    services.AddDbContext<CountDataContext>( options => 
+                        options.UseSqlite(config.Sqlite.Database));
+
                     var mongoConfig = config.Mongo;
                     services.AddSingleton<PulseCounter>(PulseCounter.Instance);
                     services.AddScoped<IDurationProvider>(provider =>
                         new DurationProvider(TimeSpan.FromSeconds(config.IdleTimer)));
                     services.AddScoped<IPinListener>(provider =>
                        new GpioPinListener(config.ListenToPin));
-                    services.AddScoped<IDataTransfer<PulseDTO>>(provider =>
-                        new MongoDataTransfer<PulseDTO>(mongoConfig.Host,
-                           mongoConfig.Database, mongoConfig.Collection));
+                    services.AddScoped<IDataTransfer<PulseDTO>, SqliteDataTransfer>();
                     services.AddScoped<ISnapshotPulse, SnapshotCount>();
                     services.AddHostedService<Application>();
                 });

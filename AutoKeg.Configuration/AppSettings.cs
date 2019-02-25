@@ -9,6 +9,7 @@ namespace AutoKeg.Configuration
         /// </summary>
         public int IdleTimer { get; set; }
         public MongoSettings Mongo { get; set; }
+        public SqliteSettings Sqlite { get; set; }
     }
 
     public class MongoSettings
@@ -16,5 +17,10 @@ namespace AutoKeg.Configuration
         public string Host { get; set; }
         public string Database { get; set; }
         public string Collection { get; set; }
+    }
+
+    public class SqliteSettings
+    {
+        public string Database { get; set; }
     }
 }

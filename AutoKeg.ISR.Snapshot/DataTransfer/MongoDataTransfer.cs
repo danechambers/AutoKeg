@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 
@@ -14,7 +15,7 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
                 .GetCollection<T>(collection);
         }
 
-        public async Task SaveDataAsync(T data) =>
-            await Collection.InsertOneAsync(data);
+        public async Task SaveDataAsync(T data, CancellationToken stoppingToken) =>
+            await Collection.InsertOneAsync(data, options: null, cancellationToken: stoppingToken);
     }
 }
