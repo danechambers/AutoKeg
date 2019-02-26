@@ -16,10 +16,11 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
             Db = dbContext;
         }
 
-        public async Task SaveDataAsync(PulseDTO data, CancellationToken stoppingToken)
+        public async Task SaveDataAsync(PulseDTO data, CancellationToken cancellationToken = default)
         {
-            await Db.PulseCounts.AddAsync(data, stoppingToken);
-            var count = await Db.SaveChangesAsync(stoppingToken);
+            await Db.Database.EnsureCreatedAsync(cancellationToken);
+            await Db.PulseCounts.AddAsync(data, cancellationToken);
+            var count = await Db.SaveChangesAsync(cancellationToken);
             Logger.LogInformation($"{count} records saved to the database");
         }
 

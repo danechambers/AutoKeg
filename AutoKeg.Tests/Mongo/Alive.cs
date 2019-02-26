@@ -7,6 +7,7 @@ namespace AutoKeg.Tests.Mongo
 {
     public class Alive
     {
+        [Ignore("No longer using mongo")]
         [Test]
         public async Task MongoIsLive()
         {

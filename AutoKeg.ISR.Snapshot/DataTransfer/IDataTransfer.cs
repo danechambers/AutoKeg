@@ -6,6 +6,6 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
     public interface IDataTransfer<T>
         where T : new()
     {
-        Task SaveDataAsync(T data, CancellationToken stoppingToken);
+        Task SaveDataAsync(T data, CancellationToken cancellationToken = default);
     }
 }
