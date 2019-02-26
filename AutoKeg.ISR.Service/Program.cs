@@ -40,8 +40,6 @@ namespace AutoKeg.ISR.Service
 
                     services.AddDbContext<CountDataContext>(options =>
                         options.UseSqlite($"Data Source={config.Sqlite.Database}"));
-
-                    var mongoConfig = config.Mongo;
                     services.AddSingleton<PulseCounter>(PulseCounter.Instance);
                     services.AddScoped<IDurationProvider>(provider =>
                         new DurationProvider(TimeSpan.FromSeconds(config.IdleTimer)));
