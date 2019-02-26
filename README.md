@@ -12,15 +12,14 @@ Rapsberry Pi with Armv7+
 From the pi
 
 * `sudo apt-get install curl libunwind8 gettext`
-
 * `curl -sSL -o dotnet.tar.gz https://__url_to_latest_armhf_runtime__`
 
 You can find the latest runtime link for .net core 2.1 here: https://github.com/dotnet/core-setup under Daily Builds Release/2.1.x. You'll need the tar archive for Linux(armhf).
 
 * `sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet`
 * `sudo ln -s /opt/dotnet/dotnet /usr/local/bin`
-* Test the installation by typing `dotnet --help`
 
+Test the installation by typing `dotnet --help`
 
 Build Requirements
 ------------------
