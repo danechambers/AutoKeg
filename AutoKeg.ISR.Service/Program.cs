@@ -39,9 +39,7 @@ namespace AutoKeg.ISR.Service
                     var config = context.Configuration.Get<AppSettings>();
 
                     services.AddDbContext<CountDataContext>(options =>
-                       options.UseSqlite(string.Format("Data Source={0}",
-                            Path.Combine(Directory.GetCurrentDirectory(),
-                                config.Sqlite.Database))));
+                        options.UseSqlite($"Data Source={config.Sqlite.Database}"));
 
                     var mongoConfig = config.Mongo;
                     services.AddSingleton<PulseCounter>(PulseCounter.Instance);
