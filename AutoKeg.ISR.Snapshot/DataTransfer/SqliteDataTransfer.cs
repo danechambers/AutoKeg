@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoKeg.ISR.Snapshot.DataTransfer
 {
-    public class SqliteDataTransfer : IDataTransfer<PulseDTO>, IDisposable
+    public class SqliteDataTransfer : IDataTransfer<PulseDTO>
     {
         private ILogger Logger { get; }
         private CountDataContext Db { get; }

@@ -41,9 +41,9 @@ namespace AutoKeg.ISR.Service
                     services.AddDbContext<CountDataContext>(options =>
                         options.UseSqlite($"Data Source={config.Sqlite.Database}"));
                     services.AddSingleton<PulseCounter>(PulseCounter.Instance);
-                    services.AddScoped<IDurationProvider>(provider =>
+                    services.AddTransient<IDurationProvider>(provider =>
                         new DurationProvider(TimeSpan.FromSeconds(config.IdleTimer)));
-                    services.AddScoped<IPinListener>(provider =>
+                    services.AddSingleton<IPinListener>(
                        new GpioPinListener(config.ListenToPin));
                     services.AddScoped<IDataTransfer<PulseDTO>, SqliteDataTransfer>();
                     services.AddScoped<ISnapshotPulse, SnapshotCount>();
@@ -56,7 +56,7 @@ namespace AutoKeg.ISR.Service
         private static void ErrorHandler(object sender, UnhandledExceptionEventArgs e)
         {
             var error = (Exception)e.ExceptionObject;
-            Console.WriteLine($"Exception occurred during application startup: {error.Message}");
+            Console.WriteLine($"Exception occurred during application runtime: {error.Message}");
             Environment.Exit(20);
         }
     }
