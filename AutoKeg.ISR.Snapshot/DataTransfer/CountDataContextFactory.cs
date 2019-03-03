@@ -8,6 +8,6 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
         public CountDataContext CreateDbContext(string[] args) =>
             new CountDataContext(
                 new DbContextOptionsBuilder<CountDataContext>()
-                    .UseSqlite("Data Source=PulseData.db").Options);
+                    .UseSqlite("Data Source=AuxiliarySensorSystem.db").Options);
     }
 }

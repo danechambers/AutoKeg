@@ -35,7 +35,6 @@ namespace AutoKeg.Tests.Sqlite
                     var service = new SqliteDataTransfer(context, NullLoggerFactory.Instance);
                     await service.SaveDataAsync(new PulseDTO
                     {
-                        DateCounted = DateTime.Now,
                         Count = 123456
                     });
                 }

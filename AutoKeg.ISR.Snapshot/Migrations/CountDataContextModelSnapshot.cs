@@ -23,7 +23,10 @@ namespace AutoKeg.ISR.Snapshot.Migrations
 
                     b.Property<int>("Count");
 
-                    b.Property<DateTime>("DateCounted");
+                    b.Property<DateTime>("DateCounted")
+                        .IsConcurrencyToken();
+
+                    b.Property<bool>("IsProcessed");
 
                     b.HasKey("PulseCountId");
 

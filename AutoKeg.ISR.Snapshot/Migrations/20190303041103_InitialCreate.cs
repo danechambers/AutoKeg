@@ -14,7 +14,8 @@ namespace AutoKeg.ISR.Snapshot.Migrations
                     PulseCountId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     DateCounted = table.Column<DateTime>(nullable: false),
-                    Count = table.Column<int>(nullable: false)
+                    Count = table.Column<int>(nullable: false),
+                    IsProcessed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -7,7 +7,9 @@ namespace AutoKeg.ISR.Snapshot.DataTransfer
     {
         [Key]
         public int PulseCountId { get; set; }
-        public DateTime DateCounted { get; set; }
+        [ConcurrencyCheck]
+        public DateTime DateCounted { get; set; } = DateTime.Now;
         public int Count { get; set; }
+        public bool IsProcessed { get; set; }
     }
 }

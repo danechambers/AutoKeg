@@ -65,7 +65,7 @@ namespace AutoKeg.ISR.Snapshot
             if (handler == null)
                 return;
 
-            var dto = new PulseDTO { DateCounted = DateTime.Now, Count = pulseCount };
+            var dto = new PulseDTO { Count = pulseCount };
             handler(this, new PulseSnapshotArgs(dto));
         }
 

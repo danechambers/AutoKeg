@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoKeg.ISR.Snapshot.Migrations
 {
     [DbContext(typeof(CountDataContext))]
-    [Migration("20190225074449_InitialCreate")]
+    [Migration("20190303041103_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,10 @@ namespace AutoKeg.ISR.Snapshot.Migrations
 
                     b.Property<int>("Count");
 
-                    b.Property<DateTime>("DateCounted");
+                    b.Property<DateTime>("DateCounted")
+                        .IsConcurrencyToken();
+
+                    b.Property<bool>("IsProcessed");
 
                     b.HasKey("PulseCountId");
 
