@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AutoKeg.ISR.Snapshot.DataTransfer
+namespace AutoKeg.DataTransfer.DTOs
 {
     public class PulseDTO
     {

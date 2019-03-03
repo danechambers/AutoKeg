@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AutoKeg.ISR.Snapshot.DataTransfer
+namespace AutoKeg.DataTransfer.Interfaces
 {
     public interface IDataTransfer<T> : IDisposable
         where T : new()

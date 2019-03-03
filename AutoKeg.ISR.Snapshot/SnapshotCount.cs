@@ -1,9 +1,9 @@
-﻿using System;
+﻿using System.Timers;
 using System.ComponentModel;
-using System.Timers;
-using AutoKeg.ISR.Snapshot.Events;
-using AutoKeg.ISR.Snapshot.DataTransfer;
+using System;
 using Microsoft.Extensions.Logging;
+using AutoKeg.ISR.Snapshot.Events;
+using AutoKeg.DataTransfer.DTOs;
 using AutoKeg.Configuration;
 
 namespace AutoKeg.ISR.Snapshot

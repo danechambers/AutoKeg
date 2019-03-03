@@ -1,12 +1,13 @@
-using System;
-using System.Threading;
 using System.Threading.Tasks;
-using AutoKeg.ISR.Service.Listeners;
-using AutoKeg.ISR.Snapshot;
-using AutoKeg.ISR.Snapshot.DataTransfer;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Threading;
+using System;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using AutoKeg.ISR.Snapshot;
+using AutoKeg.ISR.Service.Listeners;
+using AutoKeg.DataTransfer.Interfaces;
+using AutoKeg.DataTransfer.DTOs;
 
 namespace AutoKeg.ISR.Service
 {

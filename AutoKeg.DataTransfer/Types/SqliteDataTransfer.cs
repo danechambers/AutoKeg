@@ -1,9 +1,12 @@
-using System;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System;
 using Microsoft.Extensions.Logging;
+using AutoKeg.DataTransfer.TransferContexts;
+using AutoKeg.DataTransfer.Interfaces;
+using AutoKeg.DataTransfer.DTOs;
 
-namespace AutoKeg.ISR.Snapshot.DataTransfer
+namespace AutoKeg.DataTransfer.Types
 {
     public class SqliteDataTransfer : IDataTransfer<PulseDTO>
     {

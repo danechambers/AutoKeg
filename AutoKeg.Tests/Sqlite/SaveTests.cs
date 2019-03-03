@@ -1,11 +1,11 @@
-using System;
-using System.Threading;
 using System.Threading.Tasks;
-using AutoKeg.ISR.Snapshot.DataTransfer;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
+using AutoKeg.DataTransfer.Types;
+using AutoKeg.DataTransfer.TransferContexts;
+using AutoKeg.DataTransfer.DTOs;
 
 namespace AutoKeg.Tests.Sqlite
 {

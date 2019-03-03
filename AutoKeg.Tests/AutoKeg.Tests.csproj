@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AutoKeg.DataTransfer\AutoKeg.DataTransfer.csproj" />
     <ProjectReference Include="..\AutoKeg.ISR.Snapshot\AutoKeg.ISR.Snapshot.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using AutoKeg.DataTransfer.Interfaces;
 // using MongoDB.Driver;
 
-namespace AutoKeg.ISR.Snapshot.DataTransfer
+namespace AutoKeg.DataTransfer.Types
 {
     public class MongoDataTransfer<T> : IDataTransfer<T> where T : new()
     {

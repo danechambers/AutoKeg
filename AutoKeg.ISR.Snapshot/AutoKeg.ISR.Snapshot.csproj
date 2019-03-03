@@ -6,13 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AutoKeg.Configuration\AutoKeg.Configuration.csproj" />
+    <ProjectReference Include="..\AutoKeg.DataTransfer\AutoKeg.DataTransfer.csproj" />
   </ItemGroup>
 
 </Project>

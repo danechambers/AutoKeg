@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using AutoKeg.DataTransfer.DTOs;
 
-namespace AutoKeg.ISR.Snapshot.DataTransfer
+namespace AutoKeg.DataTransfer.TransferContexts
 {
     public class CountDataContext : DbContext
     {

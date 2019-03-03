@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AutoKeg.ISR.Snapshot.Migrations
+namespace AutoKeg.DataTransfer.Migrations
 {
     public partial class InitialCreate : Migration
     {

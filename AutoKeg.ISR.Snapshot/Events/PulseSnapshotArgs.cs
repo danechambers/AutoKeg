@@ -1,5 +1,5 @@
 using System;
-using AutoKeg.ISR.Snapshot.DataTransfer;
+using AutoKeg.DataTransfer.DTOs;
 
 namespace AutoKeg.ISR.Snapshot.Events
 {
