@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using System.Threading;
-using System;
 using Microsoft.Extensions.Logging;
 using AutoKeg.DataTransfer.TransferContexts;
 using AutoKeg.DataTransfer.Interfaces;
@@ -21,7 +20,7 @@ namespace AutoKeg.DataTransfer.Types
 
         public async Task SaveDataAsync(PulseDTO data, CancellationToken cancellationToken = default)
         {
-            await Db.PulseCounts.AddAsync(data, cancellationToken);
+            Db.PulseCounts.Add(data);
             var count = await Db.SaveChangesAsync(cancellationToken);
             Logger.LogInformation($"{count} records saved to the database");
         }

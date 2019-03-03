@@ -42,10 +42,8 @@ namespace AutoKeg.Tests.Sqlite
                 // Use a separate instance of the context to verify correct data was saved to database
                 using (var context = new CountDataContext(options))
                 {
-                    var records = await context.PulseCounts.CountAsync();
                     var pulseCount = await context.PulseCounts.SingleAsync();
 
-                    Assert.That(records, Is.EqualTo(1));
                     Assert.That(pulseCount.Count, Is.EqualTo(123456));
                 }
             }
