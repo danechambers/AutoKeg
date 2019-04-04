@@ -21,4 +21,9 @@ namespace AutoKeg.Configuration
     {
         public string Database { get; set; }
     }
+
+    public class FtpSettings
+    {
+        public string Url { get; set; }
+    }
 }
