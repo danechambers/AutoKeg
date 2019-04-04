@@ -49,7 +49,7 @@ namespace AutoKeg.ISR.Service
             {
                 using (var scope = Services.CreateScope())
                 using (var pulseTransfer = scope.ServiceProvider
-                    .GetRequiredService<IDataTransfer<PulseDTO>>())
+                    .GetRequiredService<ILocalRepository<PulseDTO>>())
                 {
                     await pulseTransfer.SaveDataAsync(e.PulseData, stoppingToken);
                 }

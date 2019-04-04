@@ -8,8 +8,6 @@ namespace AutoKeg.Configuration
         /// Time to wait for counter to become idle in seconds
         /// </summary>
         public int IdleTimer { get; set; }
-        public MongoSettings Mongo { get; set; }
-        public SqliteSettings Sqlite { get; set; }
     }
 
     public class MongoSettings

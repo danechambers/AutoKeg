@@ -11,15 +11,16 @@ namespace AutoKeg.DataTransfer.Migrations
                 name: "PulseCounts",
                 columns: table => new
                 {
-                    PulseCountId = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Version = table.Column<byte[]>(rowVersion: true, nullable: true),
                     DateCounted = table.Column<DateTime>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     IsProcessed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PulseCounts", x => x.PulseCountId);
+                    table.PrimaryKey("PK_PulseCounts", x => x.ID);
                 });
         }
 

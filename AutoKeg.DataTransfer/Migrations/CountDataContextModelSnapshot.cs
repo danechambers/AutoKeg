@@ -14,21 +14,24 @@ namespace AutoKeg.DataTransfer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
             modelBuilder.Entity("AutoKeg.DataTransfer.DTOs.PulseDTO", b =>
                 {
-                    b.Property<int>("PulseCountId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Count");
 
-                    b.Property<DateTime>("DateCounted")
-                        .IsConcurrencyToken();
+                    b.Property<DateTime>("DateCounted");
 
                     b.Property<bool>("IsProcessed");
 
-                    b.HasKey("PulseCountId");
+                    b.Property<byte[]>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.HasKey("ID");
 
                     b.ToTable("PulseCounts");
                 });
