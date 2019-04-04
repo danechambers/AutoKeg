@@ -42,11 +42,11 @@ namespace AutoKeg.ISR.Service
 				.ConfigureServices( ( context, services ) =>
 				{
 					var config = context.Configuration.Get<AppSettings>();
-					var dbConfig = context.Configuration.Get<SqliteSettings>();
+					var dbConfig = context.Configuration.GetSection("Sqlite")["Database"];
 
 					services
 						.AddDbContext<CountDataContext>( options =>
-							options.UseSqlite( $"Data Source={dbConfig.Database}" ) )
+							options.UseSqlite( $"Data Source={dbConfig}" ) )
 						.AddSingleton( PulseCounter.Instance )
 						.AddTransient<IDurationProvider>( provider =>
 							 new DurationProvider( TimeSpan.FromSeconds( config.IdleTimer ) ) )

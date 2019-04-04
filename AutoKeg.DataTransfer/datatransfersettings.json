@@ -1,3 +1,8 @@
 {
-	"Database": "AuxiliarySensorSystem.db"
+	"Sqlite": {
+		"Database": "AuxiliarySensorSystem.db"
+	},
+	"Ftp": {
+		"Url": "ftp://"
+	}
 }
