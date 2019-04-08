@@ -1,6 +1,6 @@
 using System;
 
-namespace AutoKeg.Configuration
+namespace AutoKeg.ISR.Snapshot
 {
     public interface IDurationProvider
     {

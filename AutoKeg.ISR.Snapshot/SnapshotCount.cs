@@ -4,7 +4,6 @@ using System;
 using Microsoft.Extensions.Logging;
 using AutoKeg.ISR.Snapshot.Events;
 using AutoKeg.DataTransfer.DTOs;
-using AutoKeg.Configuration;
 
 namespace AutoKeg.ISR.Snapshot
 {

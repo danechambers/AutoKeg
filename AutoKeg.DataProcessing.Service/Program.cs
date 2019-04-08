@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using AutoKeg.Configuration;
 using AutoKeg.DataProcessing.Service.Configuration;
 using AutoKeg.DataProcessing.Service.Interfaces;
 using AutoKeg.DataProcessing.Service.Pulse;
+using AutoKeg.DataTransfer.Configuration;
 using AutoKeg.DataTransfer.DTOs;
 using AutoKeg.DataTransfer.Interfaces;
 using AutoKeg.DataTransfer.TransferContexts;

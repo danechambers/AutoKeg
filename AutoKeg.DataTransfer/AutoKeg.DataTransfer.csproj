@@ -19,8 +19,4 @@
 	  </None>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\AutoKeg.Configuration\AutoKeg.Configuration.csproj" />
-	</ItemGroup>
-
 </Project>

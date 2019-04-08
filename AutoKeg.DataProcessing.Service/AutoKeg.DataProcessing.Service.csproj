@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\AutoKeg.Configuration\AutoKeg.Configuration.csproj" />
 		<ProjectReference Include="..\AutoKeg.DataTransfer\AutoKeg.DataTransfer.csproj" />
 	</ItemGroup>
 

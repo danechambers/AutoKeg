@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using AutoKeg.ISR.Service.Configuration;
+using Microsoft.Extensions.Options;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Gpio;
 
@@ -11,8 +13,9 @@ namespace AutoKeg.ISR.Service.Listeners
         private GpioPin GpioPin { get; }
         public int Pin { get; }
 
-        public GpioPinListener(int bcmPinNumber)
+        public GpioPinListener(IOptions<AppSettings> config)
         {
+            var bcmPinNumber = config.Value.ListenToPin;
             if (!(PinMap.TryGetValue(bcmPinNumber, out var pin)))
                 throw new ArgumentException($"{bcmPinNumber} is not a valid pin");
 

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoKeg.Configuration;
+using AutoKeg.DataTransfer.Configuration;
 using AutoKeg.DataTransfer.Interfaces;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
