@@ -1,4 +1,6 @@
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoKeg.DataTransfer.Configuration;
@@ -21,11 +23,28 @@ namespace AutoKeg.DataTransfer.Types.DataPush
             CancellationToken cancellationToken = default)
         {
             var jsonData = JsonConvert.SerializeObject(data);
-            using (var client = new WebClient())
+            var uploadContents = Encoding.UTF8.GetBytes(jsonData);
+            var request = MakeRequest("test_file.txt", uploadContents.Length);
+
+            using (var requestStream = request.GetRequestStream())
             {
-                var uploadResult = await client.UploadStringTaskAsync(Url, jsonData);
-                return new FtpDataTransferResult(uploadResult);
+                await requestStream.WriteAsync(
+                    uploadContents, 0, uploadContents.Length, cancellationToken);
             }
+
+            using (var response = (FtpWebResponse)request.GetResponse())
+            {
+                return new FtpDataTransferResult(response.StatusDescription);
+            }
+        }
+
+        private FtpWebRequest MakeRequest(string uploadFileName, long contentLength)
+        {
+            var request = (FtpWebRequest)WebRequest.Create($"{Url}/{uploadFileName}");
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+            request.Credentials = new NetworkCredential();
+            request.ContentLength = contentLength;
+            return request;
         }
     }
 }
