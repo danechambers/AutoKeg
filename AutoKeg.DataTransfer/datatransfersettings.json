@@ -1,11 +1,11 @@
 {
-	"Sqlite": {
-		"Database": "AuxiliarySensorSystem.db"
-	},
-	"Ftp": {
-		"Url": "ftp://192.168.1.199",
-		"FolderAbsolutePath": "/",
-		"Username": "upload",
-		"Password": "testltd123"
-	}
+    "Sqlite": {
+        "Database": "AuxiliarySensorSystem.db"
+    },
+    "Ftp": {
+        "Url": "ftp://",
+        "FolderAbsolutePath": "/",
+        "Username": "",
+        "Password": ""
+    }
 }
