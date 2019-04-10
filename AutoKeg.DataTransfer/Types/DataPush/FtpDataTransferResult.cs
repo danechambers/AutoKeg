@@ -4,16 +4,13 @@ namespace AutoKeg.DataTransfer.Types.DataPush
 {
     internal class FtpDataTransferResult : IApiResult
     {
-        private string Result { get; }
+        private bool Result { get; }
 
-        public FtpDataTransferResult(string result)
+        public FtpDataTransferResult(bool result)
         {
             Result = result;
         }
 
-        public bool IsSuccessful()
-        {
-            return true;
-        }
+        public bool IsSuccessful() => Result;
     }
 }

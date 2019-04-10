@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -5,18 +6,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoKeg.DataTransfer.Configuration;
 using AutoKeg.DataTransfer.Interfaces;
+using FluentFTP;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace AutoKeg.DataTransfer.Types.DataPush
 {
+    // Don't use System.Net.FtpWebRequest from: 
+    // https://github.com/dotnet/platform-compat/blob/master/docs/DE0003.md
     public class FtpDataTransfer : IApi
     {
         private string Url { get; }
+        private string FolderPath { get; }
+        private NetworkCredential FtpCredentials { get; }
 
         public FtpDataTransfer(IOptions<FtpSettings> settings)
         {
-            Url = settings.Value.Url;
+            var ftpSettings = settings.Value;
+            Url = ftpSettings.Url;
+            FolderPath = ftpSettings.FolderAbsolutePath;
+            FtpCredentials = new NetworkCredential(ftpSettings.Username, ftpSettings.Password);
         }
 
         public async Task<IApiResult> PostDataAsync(object data,
@@ -24,27 +33,15 @@ namespace AutoKeg.DataTransfer.Types.DataPush
         {
             var jsonData = JsonConvert.SerializeObject(data);
             var uploadContents = Encoding.UTF8.GetBytes(jsonData);
-            var request = MakeRequest("test_file.txt", uploadContents.Length);
 
-            using (var requestStream = request.GetRequestStream())
+            using (var client = new FtpClient(Url))
             {
-                await requestStream.WriteAsync(
-                    uploadContents, 0, uploadContents.Length, cancellationToken);
+                client.Credentials = FtpCredentials;
+                var success = await client.UploadAsync(uploadContents,
+                    Path.Combine(FolderPath, $"{DateTime.Now.Ticks}.txt"),
+                    token: cancellationToken);
+                return new FtpDataTransferResult(success);
             }
-
-            using (var response = (FtpWebResponse)request.GetResponse())
-            {
-                return new FtpDataTransferResult(response.StatusDescription);
-            }
-        }
-
-        private FtpWebRequest MakeRequest(string uploadFileName, long contentLength)
-        {
-            var request = (FtpWebRequest)WebRequest.Create($"{Url}/{uploadFileName}");
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-            request.Credentials = new NetworkCredential();
-            request.ContentLength = contentLength;
-            return request;
         }
     }
 }
