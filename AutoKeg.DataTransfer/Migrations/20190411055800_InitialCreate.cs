@@ -15,8 +15,7 @@ namespace AutoKeg.DataTransfer.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true),
                     DateCounted = table.Column<DateTime>(nullable: false),
-                    Count = table.Column<int>(nullable: false),
-                    IsProcessed = table.Column<bool>(nullable: false)
+                    Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

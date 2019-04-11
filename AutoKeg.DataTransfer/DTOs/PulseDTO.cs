@@ -11,6 +11,5 @@ namespace AutoKeg.DataTransfer.DTOs
 		public byte[] Version { get; set; }
 		public DateTime DateCounted { get; set; } = DateTime.Now;
 		public int Count { get; set; }
-		public bool IsProcessed { get; set; }
 	}
 }

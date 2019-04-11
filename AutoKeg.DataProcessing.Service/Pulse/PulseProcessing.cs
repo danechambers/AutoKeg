@@ -27,8 +27,7 @@ namespace AutoKeg.DataProcessing.Service.Pulse
 
         public async Task PushData(CancellationToken cancellationToken = default)
         {
-            var unProcessedData = PulseRepo.DataSet.ToAsyncEnumerable().Where(data => !data.IsProcessed);
-            var dataSet = await unProcessedData
+            var dataSet = await PulseRepo.DataSet.ToAsyncEnumerable()
                 .Select(data => new { PiSerialNumber, data.Count, data.DateCounted, data.ID })
                 .ToList(cancellationToken);
 

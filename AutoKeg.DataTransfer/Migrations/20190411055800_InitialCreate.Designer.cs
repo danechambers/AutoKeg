@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoKeg.DataTransfer.Migrations
 {
     [DbContext(typeof(CountDataContext))]
-    [Migration("20190323014013_InitialCreate")]
+    [Migration("20190411055800_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,8 +26,6 @@ namespace AutoKeg.DataTransfer.Migrations
                     b.Property<int>("Count");
 
                     b.Property<DateTime>("DateCounted");
-
-                    b.Property<bool>("IsProcessed");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()

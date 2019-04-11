@@ -25,8 +25,6 @@ namespace AutoKeg.DataTransfer.Migrations
 
                     b.Property<DateTime>("DateCounted");
 
-                    b.Property<bool>("IsProcessed");
-
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
