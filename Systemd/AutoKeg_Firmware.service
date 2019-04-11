@@ -1,0 +1,9 @@
+[Unit]
+Description=AutoKeg Firmware Service
+
+[Service]
+WorkingDirectory=/opt/AutoKeg/Firmware
+ExecStart=/usr/local/bin/dotnet autokeg.dll
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=AutoKeg Data Push Service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/AutoKeg/DataPush
+ExecStart=/usr/local/bin/dotnet AutoKeg.DataProcessing.Service.dll
+
+[Install]
+WantedBy=multi-user.target
